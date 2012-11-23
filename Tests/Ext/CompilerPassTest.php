@@ -27,6 +27,13 @@ class MockContainerBuilder extends ContainerBuilder
  */
 class CompilerPassTest extends \PHPUnit_Framework_TestCase
 {
+    public function test__Construct()
+    {
+        $cp = new CompilerPass('foo');
+        $this->assertSame('foo', $cp->getProviderServiceId());
+        $this->assertSame('foo', $cp->getContributorServiceTagName());
+    }
+
     public function testProcess()
     {
         $cb = new MockContainerBuilder();
