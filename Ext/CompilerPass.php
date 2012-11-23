@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Definition;
  * Instance of the Extension class passed to the constructor is used as follows:
  * - $providerServiceId -- This compiler class will contribute a new service with this ID to the container,
  *                         it will be an instance of the MergeContributionsProvider class
- * - contributorServiceTagName -- And the aformentioned instance will collect services from the container
+ * - contributorServiceTagName -- And the aforementioned instance will collect services from the container
  *                                which were tagger with this ID
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>

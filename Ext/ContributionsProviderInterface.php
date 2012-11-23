@@ -5,7 +5,7 @@ namespace Sli\ExpanderBundle\Ext;
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-interface ContributionsProviderInteface
+interface ContributionsProviderInterface
 {
     /**
      * @param ContributorInterface $contributor

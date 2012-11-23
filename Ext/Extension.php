@@ -10,10 +10,10 @@ class Extension
     private $contributorServiceTagName;
     private $providerServiceId;
 
-    public function __construct($providerServiceId, $contributorServiceTagName)
+    public function __construct($providerServiceId, $contributorServiceTagName = null)
     {
         $this->providerServiceId = $providerServiceId;
-        $this->contributorServiceTagName = $contributorServiceTagName;
+        $this->contributorServiceTagName = $contributorServiceTagName ?: $providerServiceId;
     }
 
     public function getContributorServiceTagName()

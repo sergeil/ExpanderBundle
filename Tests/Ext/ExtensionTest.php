@@ -20,5 +20,9 @@ class ExtensionTest extends \PHPUnit_Framework_TestCase
         $cp = $e->createCompilerPass();
         $this->assertInstanceOf(CompilerPass::clazz(), $cp);
         $this->assertSame($e, $cp->getExtension());
+
+        $e2 = new Extension('foo');
+        $this->assertSame('foo', $e2->getProviderServiceId());
+        $this->assertSame('foo', $e2->getContributorServiceTagName());
     }
 }
