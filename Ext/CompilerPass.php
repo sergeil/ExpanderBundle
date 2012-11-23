@@ -20,19 +20,38 @@ use Symfony\Component\DependencyInjection\Definition;
  */
 class CompilerPass implements CompilerPassInterface
 {
-    private $extension;
+//    private $extension;
 
-    /**
-     * @return Extension
-     */
-    public function getExtension()
+    private $contributorServiceTagName;
+    private $providerServiceId;
+
+    public function getContributorServiceTagName()
     {
-        return $this->extension;
+        return $this->contributorServiceTagName;
     }
 
-    public function __construct(Extension $extension)
+    public function getProviderServiceId()
     {
-        $this->extension = $extension;
+        return $this->providerServiceId;
+    }
+
+//    /**
+//     * @return Extension
+//     */
+//    public function getExtension()
+//    {
+//        return $this->extension;
+//    }
+
+//    public function __construct(Extension $extension)
+//    {
+//        $this->extension = $extension;
+//    }
+
+    public function __construct($providerServiceId, $contributorServiceTagName = null)
+    {
+        $this->providerServiceId = $providerServiceId;
+        $this->contributorServiceTagName = $contributorServiceTagName ?: $providerServiceId;
     }
 
     /**
@@ -42,10 +61,10 @@ class CompilerPass implements CompilerPassInterface
     {
         $providerDef = new Definition(MergeContributionsProvider::clazz());
         $container->addDefinitions(array(
-            $this->extension->getProviderServiceId() => $providerDef
+            $this->getProviderServiceId() => $providerDef
         ));
 
-        $contributors = $container->findTaggedServiceIds($this->extension->getContributorServiceTagName());
+        $contributors = $container->findTaggedServiceIds($this->getContributorServiceTagName());
         foreach ($contributors as $id => $attributes) {
             $providerDef->addMethodCall('addContributor', array(new Reference($id)));
         }

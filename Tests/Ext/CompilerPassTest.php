@@ -2,10 +2,8 @@
 
 namespace Sli\ExpanderBundle\Tests\Ext;
 
-use Sli\ExpanderBundle\Ext\Extension;
 use Sli\ExpanderBundle\Ext\CompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 
 class MockContainerBuilder extends ContainerBuilder
 {
@@ -29,31 +27,15 @@ class MockContainerBuilder extends ContainerBuilder
  */
 class CompilerPassTest extends \PHPUnit_Framework_TestCase
 {
-    public function test__constructAndThenGetExtension()
-    {
-        $e = $this->getMock(Extension::clazz(), array(), array(), '', false);
-        $cp = new CompilerPass($e);
-
-        $this->assertSame($e, $cp->getExtension());
-    }
-
     public function testProcess()
     {
-        $e = $this->getMock(Extension::clazz(), array(), array(), '', false);
-        $e->expects($this->any())
-          ->method('getProviderServiceId')
-          ->will($this->returnValue('fooServiceId'));
-        $e->expects($this->any())
-          ->method('getContributorServiceTagName')
-          ->will($this->returnValue('barServiceId'));
-
         $cb = new MockContainerBuilder();
         $cb->services = array(
             'service1foo' => 'def',
             'service2bar' => 'def'
         );
 
-        $cp = new CompilerPass($e);
+        $cp = new CompilerPass('fooServiceId', 'barServiceId');
         $cp->process($cb);
 
         $this->assertEquals(1, count($cb->definitions));
