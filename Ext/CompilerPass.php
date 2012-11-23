@@ -10,18 +10,11 @@ use Symfony\Component\DependencyInjection\Definition;
 /**
  * The compiler pass will collect services from the constructor with a defined tag, and create
  * a new service which may be used later to get an aggregated value of their getItems method.
- * Instance of the Extension class passed to the constructor is used as follows:
- * - $providerServiceId -- This compiler class will contribute a new service with this ID to the container,
- *                         it will be an instance of the MergeContributionsProvider class
- * - contributorServiceTagName -- And the aforementioned instance will collect services from the container
- *                                which were tagger with this ID
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
 class CompilerPass implements CompilerPassInterface
 {
-//    private $extension;
-
     private $contributorServiceTagName;
     private $providerServiceId;
 
@@ -35,19 +28,12 @@ class CompilerPass implements CompilerPassInterface
         return $this->providerServiceId;
     }
 
-//    /**
-//     * @return Extension
-//     */
-//    public function getExtension()
-//    {
-//        return $this->extension;
-//    }
-
-//    public function __construct(Extension $extension)
-//    {
-//        $this->extension = $extension;
-//    }
-
+    /**
+     * @param string $providerServiceId  This compiler class will contribute a new service with this ID to the
+     *                                   container, it will be an instance of the MergeContributionsProvider class
+     * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the
+     *                                                container which were tagger with this ID
+     */
     public function __construct($providerServiceId, $contributorServiceTagName = null)
     {
         $this->providerServiceId = $providerServiceId;
