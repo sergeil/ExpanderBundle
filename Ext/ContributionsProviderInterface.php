@@ -5,7 +5,7 @@ namespace Sli\ExpanderBundle\Ext;
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-interface ContributionsProviderInterface
+interface ContributionsProviderInterface extends ContributorInterface
 {
     /**
      * @param ContributorInterface $contributor
@@ -13,12 +13,7 @@ interface ContributionsProviderInterface
     public function addContributor(ContributorInterface $contributor);
 
     /**
-     * @return \Sli\ExpanderBundle\Ext\ContributorInterface
+     * @return \Sli\ExpanderBundle\Ext\ContributorInterface[]
      */
     public function getContributors();
-
-    /**
-     * @return array
-     */
-    public function getItems();
 }
