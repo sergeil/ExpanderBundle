@@ -12,7 +12,7 @@ namespace Sli\ExpanderBundle\Ext;
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class MergeContributionsProvider implements ContributionsProviderInterface
+class CompositeMergeContributorsProvider implements CompositeContributorsProviderInterface
 {
     private $contributors = array();
 

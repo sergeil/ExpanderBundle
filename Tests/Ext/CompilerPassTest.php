@@ -48,7 +48,7 @@ class CompilerPassTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($cb->definitions));
         $this->assertArrayHasKey('fooServiceId', $cb->definitions);
 
-        /* @var Symfony\Component\DependencyInjection\Definition $provider */
+        /* @var \Symfony\Component\DependencyInjection\Definition $provider */
         $provider = $cb->definitions['fooServiceId'];
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $provider);
         $calls = $provider->getMethodCalls();

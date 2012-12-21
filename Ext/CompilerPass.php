@@ -30,7 +30,7 @@ class CompilerPass implements CompilerPassInterface
 
     /**
      * @param string $providerServiceId  This compiler class will contribute a new service with this ID to the
-     *                                   container, it will be an instance of the MergeContributionsProvider class
+     *                                   container, it will be an instance of the CompositeMergeContributorsProvider class
      * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the
      *                                                container which were tagger with this ID
      */
@@ -45,7 +45,7 @@ class CompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $providerDef = new Definition(MergeContributionsProvider::clazz());
+        $providerDef = new Definition(CompositeMergeContributorsProvider::clazz());
         $container->addDefinitions(array(
             $this->getProviderServiceId() => $providerDef
         ));
