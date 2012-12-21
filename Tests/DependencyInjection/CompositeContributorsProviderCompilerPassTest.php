@@ -5,23 +5,6 @@ namespace Sli\ExpanderBundle\Tests\DependencyInjection;
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class MockContainerBuilder extends ContainerBuilder
-{
-    public $definitions = array();
-
-    public $services = array();
-
-    public function findTaggedServiceIds($name)
-    {
-        return $this->services;
-    }
-
-    public function addDefinitions(array $definitions)
-    {
-        $this->definitions = array_merge($this->definitions, $definitions);
-    }
-}
-
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
