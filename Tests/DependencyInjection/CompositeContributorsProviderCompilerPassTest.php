@@ -1,35 +1,18 @@
 <?php
 
-namespace Sli\ExpanderBundle\Tests\Ext;
+namespace Sli\ExpanderBundle\Tests\DependencyInjection;
 
-use Sli\ExpanderBundle\Ext\CompilerPass;
+use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-class MockContainerBuilder extends ContainerBuilder
-{
-    public $definitions = array();
-
-    public $services = array();
-
-    public function findTaggedServiceIds($name)
-    {
-        return $this->services;
-    }
-
-    public function addDefinitions(array $definitions)
-    {
-        $this->definitions = array_merge($this->definitions, $definitions);
-    }
-}
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class CompilerPassTest extends \PHPUnit_Framework_TestCase
+class CompositeContributorsProviderCompilerPassTest extends \PHPUnit_Framework_TestCase
 {
     public function test__Construct()
     {
-        $cp = new CompilerPass('foo');
+        $cp = new CompositeContributorsProviderCompilerPass('foo');
         $this->assertSame('foo', $cp->getProviderServiceId());
         $this->assertSame('foo', $cp->getContributorServiceTagName());
     }
@@ -42,13 +25,13 @@ class CompilerPassTest extends \PHPUnit_Framework_TestCase
             'service2bar' => 'def'
         );
 
-        $cp = new CompilerPass('fooServiceId', 'barServiceId');
+        $cp = new CompositeContributorsProviderCompilerPass('fooServiceId', 'barServiceId');
         $cp->process($cb);
 
         $this->assertEquals(1, count($cb->definitions));
         $this->assertArrayHasKey('fooServiceId', $cb->definitions);
 
-        /* @var Symfony\Component\DependencyInjection\Definition $provider */
+        /* @var \Symfony\Component\DependencyInjection\Definition $provider */
         $provider = $cb->definitions['fooServiceId'];
         $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $provider);
         $calls = $provider->getMethodCalls();

@@ -2,7 +2,7 @@
 
 namespace Sli\ExpanderBundle\Tests\Ext;
 
-use Sli\ExpanderBundle\Ext\MergeContributionsProvider;
+use Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider;
 use Sli\ExpanderBundle\Ext\ContributorInterface;
 use Sli\ExpanderBundle\Ext\OrderedContributorInterface;
 
@@ -25,13 +25,14 @@ class MockOrderAwareContributor implements ContributorInterface, OrderedContribu
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class MergeContributionsProviderTest extends \PHPUnit_Framework_TestCase
+class CompositeMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
 {
+    /* @var \Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider $p */
     private $p;
 
     public function setUp()
     {
-        $this->p = new MergeContributionsProvider();
+        $this->p = new CompositeMergeContributorsProvider();
     }
 
     public function testAddContributorAndThenGetContributors()
