@@ -19,11 +19,17 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     private $contributorServiceTagName;
     private $providerServiceId;
 
+    /**
+     * @return string
+     */
     public function getContributorServiceTagName()
     {
         return $this->contributorServiceTagName;
     }
 
+    /**
+     * @return string
+     */
     public function getProviderServiceId()
     {
         return $this->providerServiceId;
