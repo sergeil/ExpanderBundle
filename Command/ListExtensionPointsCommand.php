@@ -45,9 +45,11 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
         foreach ($kernel->getExtensionCompilerPasses() as $pass) {
             /** @var CompositeContributorsProviderCompilerPass $pass */
 
+            $ep = $pass->getExtensionPoint();
+
             $rows[] = array(
-                $pass->getContributorServiceTagName(),
-                $pass->getContributorServiceTagName()
+                $ep ? $ep->getContributionTag() : $pass->getContributorServiceTagName(),
+                $ep ? $ep->getId() : $pass->getProviderServiceId(),
             );
         }
 

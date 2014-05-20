@@ -3,10 +3,13 @@
 namespace Sli\ExpanderBundle\Misc;
 
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
+use Sli\ExpanderBundle\DependencyInjection\ExtensionPointAwareCompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
+ * This class is not a part of a public API.
+ *
  * This kernel class caches used by container ContainerBuilder which allows later to introspect what
  * compiler passed have been used to build a container.
  *
@@ -42,7 +45,7 @@ class KernelProxy extends \AppKernel
         $result = array();
 
         foreach ($this->containerBuilder->getCompiler()->getPassConfig()->getPasses() as $pass) {
-            if ($pass instanceof CompositeContributorsProviderCompilerPass) {
+            if ($pass instanceof ExtensionPointAwareCompilerPassInterface) {
                 $result[] = $pass;
             }
         }

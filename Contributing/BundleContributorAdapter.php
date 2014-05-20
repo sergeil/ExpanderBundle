@@ -7,9 +7,13 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
+ * This class is not part of a public API.
+ *
+ * This class is used internally by {@class ExtensionPointsAwareBundlesCollectorCompilerPass}.
+ *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class BundleContributorProxy implements ContributorInterface
+class BundleContributorAdapter implements ContributorInterface
 {
     private $kernel;
     private $bundleName;
@@ -33,7 +37,7 @@ class BundleContributorProxy implements ContributorInterface
     public function getItems()
     {
         $bundle = $this->kernel->getBundle($this->bundleName);
-        if ($bundle && $bundle instanceof ExtensionPointsAwareBundleInterface) {
+        if ($bundle instanceof ExtensionPointsAwareBundleInterface) {
             $contributions = $bundle->getExtensionPointContributions();
 
             if (   is_array($contributions) && isset($contributions[$this->extensionPointName])
@@ -41,6 +45,11 @@ class BundleContributorProxy implements ContributorInterface
 
                 return $contributions[$this->extensionPointName];
             }
+        } else {
+            throw new \InvalidArgumentException(sprintf(
+                "Bundle '%s' doesn't implement ExtensionPointsAwareBundleInterface interface",
+                get_class($bundle)
+            ));
         }
 
         return array();

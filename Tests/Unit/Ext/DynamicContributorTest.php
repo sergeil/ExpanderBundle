@@ -1,6 +1,6 @@
 <?php
 
-namespace Sli\ExpanderBundle\Tests\Ext;
+namespace Sli\ExpanderBundle\Tests\Unit\Ext;
 
 use Sli\ExpanderBundle\Ext\DynamicContributor;
 

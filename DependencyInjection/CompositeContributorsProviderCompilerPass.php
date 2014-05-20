@@ -2,6 +2,7 @@
 
 namespace Sli\ExpanderBundle\DependencyInjection;
 
+use Sli\ExpanderBundle\Ext\ExtensionPoint;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -14,10 +15,11 @@ use Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider;
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
+class CompositeContributorsProviderCompilerPass implements CompilerPassInterface, ExtensionPointAwareCompilerPassInterface
 {
     private $contributorServiceTagName;
     private $providerServiceId;
+    private $extensionPoint;
 
     /**
      * @return string
@@ -40,11 +42,13 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
      *                                   container, it will be an instance of the CompositeMergeContributorsProvider class
      * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the
      *                                                container which were tagger with this ID
+     * @param null|ExtensionPoint $extensionPoint
      */
-    public function __construct($providerServiceId, $contributorServiceTagName = null)
+    public function __construct($providerServiceId, $contributorServiceTagName = null, ExtensionPoint $extensionPoint = null)
     {
         $this->providerServiceId = $providerServiceId;
         $this->contributorServiceTagName = $contributorServiceTagName ?: $providerServiceId;
+        $this->extensionPoint = $extensionPoint;
     }
 
     /**
@@ -61,6 +65,14 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
         foreach ($contributors as $id => $attributes) {
             $providerDef->addMethodCall('addContributor', array(new Reference($id)));
         }
+    }
+
+    /**
+     * @return \Sli\ExpanderBundle\Ext\ExtensionPoint
+     */
+    public function getExtensionPoint()
+    {
+        return $this->extensionPoint;
     }
 
     /**

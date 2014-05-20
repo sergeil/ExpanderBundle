@@ -13,6 +13,9 @@ use Symfony\Component\HttpKernel\KernelInterface;
  * compiles pass will dynamically contribute a provider class to DI container so later you can see a container
  * dump file to find all contributions for a certain extension-point.
  *
+ * This compiler pass will be automatically registered if when you added {@class \Sli\ExpanderBundle\SliExpanderBundle}
+ * to your app kernel you provided a link to kernel as its first argument.
+ *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
 class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassInterface
@@ -59,7 +62,7 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
                         $bundle->getName(),
                         $extensionPointName,
                     );
-                    $definition = new Definition(BundleContributorProxy::clazz(), $definitionArgs);
+                    $definition = new Definition(BundleContributorAdapter::clazz(), $definitionArgs);
                     $definition->addTag($extensionPointName);
 
                     $container->setDefinition($serviceName, $definition);

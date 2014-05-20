@@ -1,6 +1,6 @@
 <?php
 
-namespace Sli\ExpanderBundle\Tests\DependencyInjection;
+namespace Sli\ExpanderBundle\Tests\Unit\DependencyInjection;
 
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

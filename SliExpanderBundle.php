@@ -11,6 +11,9 @@ class SliExpanderBundle extends Bundle
 {
     private $kernel;
 
+    /**
+     * @param KernelInterface $kernel
+     */
     public function __construct(KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;

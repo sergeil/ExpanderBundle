@@ -3,12 +3,10 @@
 namespace Sli\ExpanderBundle\Ext;
 
 /**
- * This provider know how to deal with with aggregated providers that happen
- * to implement OrderedContributorInterface interface. If there are several
- * providers that have the same order specified, then LIFO method is used
- * to resolve the best one. If some of providers do no implement this interface,
- * then they will be appended to the end of all providers ( when #getItems() method is
- * invoked )
+ * This provider know how to deal with with aggregated providers that happen to implement OrderedContributorInterface
+ * interface. If there are several providers that have the same order specified, then LIFO method is used to resolve
+ * the best one. If some of providers do no implement this interface, then they will be appended to the end of all
+ * providers ( when #getItems() method is invoked ).
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */

@@ -11,6 +11,9 @@ class DynamicContributor implements ContributorInterface
 {
     private $items = array();
 
+    /**
+     * @param mixed[] $items
+     */
     public function __construct(array $items = array())
     {
         foreach ($items as $item) {
@@ -18,11 +21,17 @@ class DynamicContributor implements ContributorInterface
         }
     }
 
+    /**
+     * @param mixed $item
+     */
     public function addItem($item)
     {
         $this->items[spl_object_hash($item)] = $item;
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getItems()
     {
         return $this->items;
