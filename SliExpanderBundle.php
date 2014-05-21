@@ -28,5 +28,4 @@ class SliExpanderBundle extends Bundle
             $container->addCompilerPass(new ExtensionPointsAwareBundlesCollectorCompilerPass($this->kernel));
         }
     }
-
 }

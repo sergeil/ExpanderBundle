@@ -11,12 +11,13 @@ Add this dependency to your composer.json:
 
     "sergeil/expander-bundle": "dev-master"
 
-Update your AppKernel class and add ModeraFoundationBundle declaration there:
+Update your AppKernel class and add SliExpanderBundle declaration there:
 
     new Sli\ExpanderBundle\SliExpanderBundle(),
 
 ## Documentation
 
+It is on its way already, rly
 
 ## Licensing
 

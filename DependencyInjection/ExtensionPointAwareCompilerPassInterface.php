@@ -6,7 +6,7 @@ use Sli\ExpanderBundle\Ext\ExtensionPoint;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
- */ 
+ */
 interface ExtensionPointAwareCompilerPassInterface 
 {
     /**

@@ -70,4 +70,9 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
             '<info>* Service ID -- this a dynamically built service container ID that can be used to get all extension point contributions</info>'
         );
     }
+
+    static public function clazz()
+    {
+        return get_called_class();
+    }
 }

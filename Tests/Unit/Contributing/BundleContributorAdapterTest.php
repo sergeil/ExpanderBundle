@@ -4,24 +4,12 @@ namespace Sli\ExpanderBundle\Tests\Unit\Contributing;
 
 use Sli\ExpanderBundle\Contributing\BundleContributorAdapter;
 use Sli\ExpanderBundle\Contributing\ExtensionPointsAwareBundleInterface;
+use Sli\ExpanderBundle\Tests\Unit\FooDummyBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class FooDummyBundle extends Bundle implements ExtensionPointsAwareBundleInterface
-{
-    public $map = array();
-
-    /**
-     * @inheritDoc
-     */
-    public function getExtensionPointContributions()
-    {
-        return $this->map;
-    }
-}
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
- */ 
+ */
 class BundleContributorAdapterTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetItems()

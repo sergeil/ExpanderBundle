@@ -64,6 +64,10 @@ class ExtensionPoint
      */
     public function getContributionTag()
     {
+        if (!$this->contributionTag) {
+            return $this->id;
+        }
+
         return $this->contributionTag;
     }
 

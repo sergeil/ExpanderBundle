@@ -47,9 +47,8 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
     {
         foreach ($this->kernel->getBundles() as $bundle) {
             if ($bundle instanceof ExtensionPointsAwareBundleInterface) {
-                $i = 0;
                 foreach ($bundle->getExtensionPointContributions() as $extensionPointName => $contributions) {
-                    $serviceName = strtolower($bundle->getName()) . '.' . $this->extractShortName($extensionPointName) . ($i++);
+                    $serviceName = strtolower($bundle->getName()) . '.' . $this->extractShortName($extensionPointName);
 
                     if ($container->hasDefinition($serviceName)) {
                         throw new \RuntimeException(
