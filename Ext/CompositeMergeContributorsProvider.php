@@ -40,12 +40,21 @@ class CompositeMergeContributorsProvider implements CompositeContributorsProvide
         $plainContributors = array();
         foreach ($this->contributors as $contributor) {
             if ($contributor instanceof OrderedContributorInterface) {
-                $orderedContributors[$contributor->getOrder()] = $contributor;
+                $orderedContributors[] = $contributor;
             } else {
                 $plainContributors[] = $contributor;
             }
         }
-        ksort($orderedContributors);
+
+        // @ is required to avoid having errors thrown by some versions of PHP
+        @usort($orderedContributors, function(OrderedContributorInterface $a, OrderedContributorInterface $b) {
+            if ($a->getOrder() == $b->getOrder()) {
+                return 1;
+            }
+
+            return $a->getOrder() < $a->getOrder() ? 1 : -1;
+        });
+
         $contributors = array_merge($orderedContributors, $plainContributors);
 
         $result = array();
@@ -60,6 +69,7 @@ class CompositeMergeContributorsProvider implements CompositeContributorsProvide
 
             $result = array_merge($result, $contributorResult);
         }
+
         return $result;
     }
 

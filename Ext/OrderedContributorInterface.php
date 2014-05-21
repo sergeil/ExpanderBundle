@@ -10,7 +10,7 @@ namespace Sli\ExpanderBundle\Ext;
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-interface OrderedContributorInterface
+interface OrderedContributorInterface extends ContributorInterface
 {
     /**
      * @return integer

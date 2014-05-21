@@ -6,10 +6,16 @@ use Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider;
 use Sli\ExpanderBundle\Ext\ContributorInterface;
 use Sli\ExpanderBundle\Ext\OrderedContributorInterface;
 
-class MockOrderAwareContributor implements ContributorInterface, OrderedContributorInterface
+class MockOrderAwareContributor implements OrderedContributorInterface
 {
     public $items = array();
     public $order;
+
+    public function __construct($order = null, $items = array())
+    {
+        $this->order = $order;
+        $this->items = $items;
+    }
 
     public function getItems()
     {
@@ -82,23 +88,36 @@ class CompositeMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItemsWithOrder()
     {
-        $c1 = new MockOrderAwareContributor();
-        $c1->order = 100;
-        $c1->items = array('foo');
+        $c1 = new MockOrderAwareContributor(100, array('foo'));
 
-        $c2 = $this->getMock(ContributorInterface::CLAZZ);
-        $c2->expects($this->any())
-           ->method('getItems')
-           ->will($this->returnValue(array('baz')));
+        $c2 = \Phake::mock(ContributorInterface::CLAZZ);
+        \Phake::when($c2)->getItems()->thenReturn(array('baz'));
 
-        $c3 = new MockOrderAwareContributor();
-        $c3->order = 50;
-        $c3->items = array('bar');
+        $c3 = new MockOrderAwareContributor(50, array('bar'));
 
         $this->p->addContributor($c1);
         $this->p->addContributor($c2);
         $this->p->addContributor($c3);
 
         $this->assertSame(array('bar', 'foo', 'baz'), $this->p->getItems());
+    }
+
+    /**
+     * @group MPFE-488
+     */
+    public function testGetItemsWithSameOrder()
+    {
+        $c1 = new MockOrderAwareContributor(1, array('foo'));
+
+        $c2 = new MockOrderAwareContributor(1, array('bar'));
+
+        $c3 = \Phake::mock(ContributorInterface::CLAZZ);
+        \Phake::when($c3)->getItems()->thenReturn(array('baz'));
+
+        $this->p->addContributor($c1);
+        $this->p->addContributor($c2);
+        $this->p->addContributor($c3);
+
+        $this->assertSame(array('foo', 'bar', 'baz'), $this->p->getItems());
     }
 }
