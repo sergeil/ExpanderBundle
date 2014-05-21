@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -31,13 +32,12 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
     }
 
     /**
+     * @param BundleInterface $bundle
      * @param string $extensionPointName
-     *
-     * @return string
      */
-    private function extractShortName($extensionPointName)
+    private function createServiceName(BundleInterface $bundle, $extensionPointName)
     {
-        return substr($extensionPointName, strrpos($extensionPointName, '.') + 1);
+        return strtolower($bundle->getName() . '.dynamic_contribution.' . str_replace('.', '_', $extensionPointName));
     }
 
     /**
@@ -48,7 +48,8 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
         foreach ($this->kernel->getBundles() as $bundle) {
             if ($bundle instanceof ExtensionPointsAwareBundleInterface) {
                 foreach ($bundle->getExtensionPointContributions() as $extensionPointName => $contributions) {
-                    $serviceName = strtolower($bundle->getName()) . '.' . $this->extractShortName($extensionPointName);
+
+                    $serviceName = $this->createServiceName($bundle, $extensionPointName);
 
                     if ($container->hasDefinition($serviceName)) {
                         throw new \RuntimeException(
