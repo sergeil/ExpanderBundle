@@ -3,8 +3,6 @@
 The bundle adds a bunch of classes and might prove useful when you need to build easily extensible architecture, it
 defines some sort of extension-points architecture that leverages CompilerPass approach provided by Symfony.
 
-Bundle ships some very basic utility classes
-
 ## Installation
 
 Add this dependency to your composer.json:
