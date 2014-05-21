@@ -1,4 +1,4 @@
-# SliExpanderBundle [![Build Status](https://travis-ci.org/sergeil/SliExpanderBundle.svg?branch=master)](https://travis-ci.org/sergeil/SliExpanderBundle)
+# SliExpanderBundle [![Build Status](https://travis-ci.org/sergeil/ExpanderBundle.svg)](https://travis-ci.org/sergeil/ExpanderBundle)
 
 The bundle adds a bunch of classes and might prove useful when you need to build easily extensible architecture, it
 defines some sort of extension-points architecture that leverages CompilerPass approach provided by Symfony.
