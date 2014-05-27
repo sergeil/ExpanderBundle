@@ -2,14 +2,15 @@
 
 namespace Sli\ExpanderBundle\Command;
 
+use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Sli\ExpanderBundle\Misc\KernelProxy;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
@@ -23,52 +24,62 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
         $this
             ->setName('sli:expander:list-extension-points')
             ->setDescription('Shows a lists of available extension-points.')
+            ->addOption(
+                'skip-question', null, null,
+                'If given then command will not ask a user to type in command # to display its detailed description.'
+            )
         ;
     }
 
-    private function cleanUp(KernelInterface $kernel)
-    {
-        $filesystem = new Filesystem();
-        $filesystem->remove($kernel->getCacheDir());
-        $filesystem->remove($kernel->getLogDir());
-    }
-
     // override
-    public function run(InputInterface $input, OutputInterface $output)
+    public function execute(InputInterface $input, OutputInterface $output)
     {
         $kernel = new KernelProxy('dev', true);
         $kernel->boot();
 
-        $this->cleanUp($kernel);
+        $kernel->cleanUp();
+
+        $i = 0;
 
         $rows = array();
-        foreach ($kernel->getExtensionCompilerPasses() as $pass) {
+        foreach (array_values($kernel->getExtensionCompilerPasses()) as $pass) {
             /** @var CompositeContributorsProviderCompilerPass $pass */
 
             $ep = $pass->getExtensionPoint();
 
+            if (!$ep) {
+                continue;
+            }
+
             $rows[] = array(
-                $ep ? $ep->getContributionTag() : $pass->getContributorServiceTagName(),
-                $ep ? $ep->getId() : $pass->getProviderServiceId(),
+                $i + 1,
+                $ep->getId(),
+                $ep->isDetailedDescriptionAvailable() ? 'Yes' : 'No',
+                $ep ? $ep->getDescription() : ''
             );
+
+            $i++;
         }
 
-        $this->cleanUp($kernel);
+        $kernel->cleanUp();
 
         /* @var TableHelper $table */
         $table = $this->getHelperSet()->get('table');
         $table
-            ->setHeaders(array('Tag', 'Service ID'))
+            ->setHeaders(array('#', 'Name', 'Docs', 'Description'))
             ->setRows($rows)
         ;
         $table->render($output);
 
-        $output->writeln(
-            '<info>* Tag -- this a tag you need to tag your services with in order to contribute to any given extension point</info>'
-        );
-        $output->writeln(
-            '<info>* Service ID -- this a dynamically built service container ID that can be used to get all extension point contributions</info>'
-        );
+        if (!$input->getOption('skip-question')) {
+            /* @var DialogHelper $dialogHelper */
+            $dialogHelper = $this->getHelper('dialog');
+            $answer = $dialogHelper->ask($output, 'Extension point # you want to see detailed documentation for: ');
+            if (null !== $answer) {
+                $id = $rows[$answer-1][1];
+                $this->getApplication()->run(new StringInput('sli:expander:explore-extension-point ' . $id));
+            }
+        }
     }
 
     static public function clazz()

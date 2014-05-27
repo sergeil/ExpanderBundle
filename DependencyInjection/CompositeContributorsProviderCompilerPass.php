@@ -10,8 +10,8 @@ use Symfony\Component\DependencyInjection\Definition;
 use Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider;
 
 /**
- * The compiler pass will collect services from the constructor with a defined tag, and create
- * a new service which may be used later to get an aggregated value of their getItems method.
+ * The compiler pass will collect services from the constructor with a defined tag, and create a new service which may
+ * be used later to get an aggregated value of their getItems method.
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
@@ -38,6 +38,8 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     }
 
     /**
+     * @deprecated  Use \Sli\ExpanderBundle\Ext\ExtensionPoint::createCompilerPass() method instead!
+     *
      * @param string $providerServiceId  This compiler class will contribute a new service with this ID to the
      *                                   container, it will be an instance of the CompositeMergeContributorsProvider class
      * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the

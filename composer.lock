@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b2855a55dd0428a22f799a4298a57599e209cfd4"
+                "reference": "a11645c63740c29c10f49af961c9856676778349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b2855a55dd0428a22f799a4298a57599e209cfd4",
-                "reference": "b2855a55dd0428a22f799a4298a57599e209cfd4",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/a11645c63740c29c10f49af961c9856676778349",
+                "reference": "a11645c63740c29c10f49af961c9856676778349",
                 "shasum": ""
             },
             "require": {
@@ -596,7 +596,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -632,7 +632,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-05-18 15:36:54"
+            "time": "2014-05-23 14:36:49"
         },
         {
             "name": "twig/twig",
@@ -640,12 +640,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "c2ae310203e65987a26d57b87a173b15747a3412"
+                "reference": "7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/c2ae310203e65987a26d57b87a173b15747a3412",
-                "reference": "c2ae310203e65987a26d57b87a173b15747a3412",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c",
+                "reference": "7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c",
                 "shasum": ""
             },
             "require": {
@@ -654,7 +654,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.15-dev"
+                    "dev-master": "1.16-dev"
                 }
             },
             "autoload": {
@@ -689,7 +689,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-05-21 01:15:25"
+            "time": "2014-05-26 00:34:04"
         }
     ],
     "packages-dev": [

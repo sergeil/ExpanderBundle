@@ -7,7 +7,7 @@ use Sli\ExpanderBundle\Ext\ExtensionPoint;
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-interface ExtensionPointAwareCompilerPassInterface 
+interface ExtensionPointAwareCompilerPassInterface
 {
     /**
      * Must return an instance of extension point that this compiler pass is attached to.

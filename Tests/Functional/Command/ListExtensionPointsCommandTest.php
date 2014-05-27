@@ -22,8 +22,8 @@ class ListExtensionPointsCommandTest extends FunctionalTestCase
         $this->assertInstanceOf(ListExtensionPointsCommand::clazz(), $command);
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array('command' => $command->getName()));
+        $commandTester->execute(array('command' => $command->getName(), '--skip-question' => true));
 
-        $this->assertRegExp('/sli_expander.dummy_resources_provider/', $commandTester->getDisplay());
+        $this->assertRegExp('/sli_expander.dummy_resources/', $commandTester->getDisplay());
     }
 } 

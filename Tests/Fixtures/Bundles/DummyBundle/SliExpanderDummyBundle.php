@@ -20,7 +20,7 @@ class SliExpanderDummyBundle extends Bundle implements ExtensionPointsAwareBundl
 
         $container->registerExtension(new SliExpanderDummyExtension());
 
-        $ep = new ExtensionPoint('sli_expander.dummy_resources_provider');
+        $ep = new ExtensionPoint('sli_expander.dummy_resources');
 
         $container->addCompilerPass($ep->createCompilerPass());
     }

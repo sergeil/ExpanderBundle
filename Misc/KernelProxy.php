@@ -6,6 +6,7 @@ use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompiler
 use Sli\ExpanderBundle\DependencyInjection\ExtensionPointAwareCompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * This class is not a part of a public API.
@@ -67,5 +68,12 @@ class KernelProxy extends \AppKernel
     public function getLogDir()
     {
         return sys_get_temp_dir() . '/sli-kernelproxy/logs';
+    }
+
+    public function cleanUp()
+    {
+        $filesystem = new Filesystem();
+        $filesystem->remove($this->getCacheDir());
+        $filesystem->remove($this->getLogDir());
     }
 }
