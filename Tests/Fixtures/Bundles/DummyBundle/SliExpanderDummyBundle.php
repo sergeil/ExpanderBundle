@@ -16,13 +16,13 @@ class SliExpanderDummyBundle extends Bundle implements ExtensionPointsAwareBundl
     // override
     public function build(ContainerBuilder $container)
     {
-        parent::build($container);
-
         $container->registerExtension(new SliExpanderDummyExtension());
 
-        $ep = new ExtensionPoint('sli_expander.dummy_resources');
+        $ep1 = new ExtensionPoint('sli_expander.dummy_resources');
+        $container->addCompilerPass($ep1->createCompilerPass());
 
-        $container->addCompilerPass($ep->createCompilerPass());
+        $ep2 = new ExtensionPoint('sli_expander.blah_resources');
+        $container->addCompilerPass($ep2->createCompilerPass());
     }
 
     /**

@@ -24,6 +24,7 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
         $this
             ->setName('sli:expander:list-extension-points')
             ->setDescription('Shows a lists of available extension-points.')
+            ->addArgument('id-filter', null, 'Allows to filter displayed extension points')
             ->addOption(
                 'skip-question', null, null,
                 'If given then command will not ask a user to type in command # to display its detailed description.'
@@ -41,13 +42,15 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
 
         $i = 0;
 
+        $idFilter = $input->getArgument('id-filter');
+
         $rows = array();
         foreach (array_values($kernel->getExtensionCompilerPasses()) as $pass) {
             /** @var CompositeContributorsProviderCompilerPass $pass */
 
             $ep = $pass->getExtensionPoint();
 
-            if (!$ep) {
+            if (!$ep || (null !== $idFilter && false === strpos($ep->getId(), $idFilter))) {
                 continue;
             }
 

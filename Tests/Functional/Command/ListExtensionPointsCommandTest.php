@@ -25,5 +25,14 @@ class ListExtensionPointsCommandTest extends FunctionalTestCase
         $commandTester->execute(array('command' => $command->getName(), '--skip-question' => true));
 
         $this->assertRegExp('/sli_expander.dummy_resources/', $commandTester->getDisplay());
+        $this->assertRegExp('/sli_expander.blah_resources/', $commandTester->getDisplay());
+
+        // ---
+
+        // with filter specified:
+        $commandTester->execute(array('command' => $command->getName(), 'id-filter' => 'blah', '--skip-question' => true));
+
+        $this->assertRegExp('/sli_expander.blah_resources/', $commandTester->getDisplay());
+        $this->assertNotRegExp('/sli_expander.dummy_resources/', $commandTester->getDisplay());
     }
 } 
