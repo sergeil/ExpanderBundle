@@ -143,6 +143,22 @@ class ExtensionPoint
         return !!$this->detailedDescription;
     }
 
+    /**
+     * @param string $batchContributionTag
+     */
+    public function setBatchContributionTag($batchContributionTag)
+    {
+        $this->batchContributionTag = $batchContributionTag;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBatchContributionTag()
+    {
+        return $this->batchContributionTag;
+    }
+
     static public function clazz()
     {
         return get_called_class();

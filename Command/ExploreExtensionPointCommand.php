@@ -59,7 +59,7 @@ class ExploreExtensionPointCommand extends ContainerAwareCommand
         $output->writeln($extensionPoint->getCategory() ? $extensionPoint->getCategory() : '-');
 
         $output->writeln('<info>Batch contribution tag:</info>');
-        $output->writeln($extensionPoint->getSingleContributionTag());
+        $output->writeln($extensionPoint->getBatchContributionTag());
 
         $output->writeln('<info>Single contribution tag:</info>');
         $output->writeln('-');
