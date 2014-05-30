@@ -4,6 +4,7 @@ namespace Sli\ExpanderBundle\Misc;
 
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Sli\ExpanderBundle\DependencyInjection\ExtensionPointAwareCompilerPassInterface;
+use Sli\ExpanderBundle\Ext\ExtensionPoint;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Filesystem\Filesystem;
@@ -52,6 +53,28 @@ class KernelProxy extends \AppKernel
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return null|ExtensionPoint
+     */
+    public function getExtensionPoint($id)
+    {
+        /* @var ExtensionPoint $extensionPoint */
+        $extensionPoint = null;
+        foreach ($this->getExtensionCompilerPasses() as $pass) {
+            /** @var CompositeContributorsProviderCompilerPass $pass */
+
+            $iteratedExtensionPoint = $pass->getExtensionPoint();
+
+            if ($iteratedExtensionPoint && $iteratedExtensionPoint->getId() == $id) {
+                return $iteratedExtensionPoint;
+            }
+        }
+
+        return null;
     }
 
     /**

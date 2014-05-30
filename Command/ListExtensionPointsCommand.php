@@ -35,6 +35,8 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
     // override
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->getApplication()->setAutoExit(false);
+
         $kernel = new KernelProxy('dev', true);
         $kernel->boot();
 
@@ -78,9 +80,21 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
             /* @var DialogHelper $dialogHelper */
             $dialogHelper = $this->getHelper('dialog');
             $answer = $dialogHelper->ask($output, 'Extension point # you want to see detailed documentation for: ');
+
+            $extensionPointId = null;
+
             if (null !== $answer) {
-                $id = $rows[$answer-1][1];
-                $this->getApplication()->run(new StringInput('sli:expander:explore-extension-point ' . $id));
+                $extensionPointId = $rows[$answer-1][1];
+                $this->getApplication()->run(new StringInput('sli:expander:explore-extension-point ' . $extensionPointId));
+            }
+
+            $question = 'Would you like to create a contribution to this extension-point right away ? ';
+            $output->writeln(str_repeat('-', strlen($question)));
+            $answer = $dialogHelper->askConfirmation($output, "<info>$question</info>");
+
+            if ($answer) {
+                $output->writeln('');
+                $this->getApplication()->run(new StringInput('sli:expander:contribute ' . $extensionPointId));
             }
         }
     }
