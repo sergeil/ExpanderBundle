@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
-use Sli\ExpanderBundle\Ext\CompositeMergeContributorsProvider;
+use Sli\ExpanderBundle\Ext\ChainMergeContributorsProvider;
 
 /**
  * The compiler pass will collect services from the constructor with a defined tag, and create a new service which may
@@ -41,7 +41,7 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
      * @deprecated  Use \Sli\ExpanderBundle\Ext\ExtensionPoint::createCompilerPass() method instead!
      *
      * @param string $providerServiceId  This compiler class will contribute a new service with this ID to the
-     *                                   container, it will be an instance of the CompositeMergeContributorsProvider class
+     *                                   container, it will be an instance of the ChainMergeContributorsProvider class
      * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the
      *                                                container which were tagger with this ID
      * @param null|ExtensionPoint $extensionPoint
@@ -58,7 +58,7 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $providerDef = new Definition(CompositeMergeContributorsProvider::clazz());
+        $providerDef = new Definition(ChainMergeContributorsProvider::clazz());
         $container->addDefinitions(array(
             $this->getProviderServiceId() => $providerDef
         ));

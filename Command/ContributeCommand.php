@@ -3,7 +3,6 @@
 namespace Sli\ExpanderBundle\Command;
 
 use Sli\ExpanderBundle\Misc\KernelProxy;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputArgument;

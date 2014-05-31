@@ -10,7 +10,7 @@ namespace Sli\ExpanderBundle\Ext;
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class CompositeMergeContributorsProvider implements CompositeContributorsProviderInterface
+class ChainMergeContributorsProvider implements ChainContributorsProviderInterface
 {
     private $contributors = array();
 

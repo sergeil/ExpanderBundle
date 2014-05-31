@@ -2,7 +2,7 @@
 
 namespace Sli\ExpanderBundle\Tests\Unit\Ext;
 
-use Sli\ExpanderBundle\Ext\DynamicContributor;
+use Sli\ExpanderBundle\Ext\SimpleContributor;
 
 /**
  * @copyright 2012 Modera Foundation
@@ -15,7 +15,7 @@ class DynamicContributorTest extends \PHPUnit_Framework_TestCase
         $c1 = new \stdClass();
         $c2 = $c1;
 
-        $dc = new DynamicContributor(array($c1, $c2));
+        $dc = new SimpleContributor(array($c1, $c2));
         $this->assertEquals(1, count($dc->getItems()));
 
         $dc->addItem($c1);

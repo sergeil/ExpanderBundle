@@ -5,7 +5,6 @@ namespace Sli\ExpanderBundle\Command;
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Sli\ExpanderBundle\Ext\ExtensionPoint;
 use Sli\ExpanderBundle\Misc\KernelProxy;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

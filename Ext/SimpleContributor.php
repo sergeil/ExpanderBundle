@@ -7,7 +7,7 @@ use Sli\ExpanderBundle\Ext\ContributorInterface;
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class DynamicContributor implements ContributorInterface
+class SimpleContributor implements ContributorInterface
 {
     private $items = array();
 

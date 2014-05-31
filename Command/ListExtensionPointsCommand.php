@@ -5,16 +5,13 @@ namespace Sli\ExpanderBundle\Command;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Sli\ExpanderBundle\Misc\KernelProxy;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * @author    Sergei Lissovski <sergei.lissovski@modera.org>
- * @copyright 2014 Modera Foundation
+ * @author    Sergei Lissovski <sergei.lissovski@gmail.com>
  */
 class ListExtensionPointsCommand extends AbstractCommand
 {
