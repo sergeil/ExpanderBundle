@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "166e9b5dc23a23de18b6093417c3bba6",
+    "hash": "260623ec9e93d1e0e08fb7bcdabe7747",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "a11645c63740c29c10f49af961c9856676778349"
+                "reference": "5c782607ade9bd7bc8e51131cdcd06ee0d568c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/a11645c63740c29c10f49af961c9856676778349",
-                "reference": "a11645c63740c29c10f49af961c9856676778349",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/5c782607ade9bd7bc8e51131cdcd06ee0d568c92",
+                "reference": "5c782607ade9bd7bc8e51131cdcd06ee0d568c92",
                 "shasum": ""
             },
             "require": {
@@ -632,7 +632,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-05-31 02:03:04"
         },
         {
             "name": "twig/twig",
@@ -640,12 +640,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fabpot/Twig.git",
-                "reference": "7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c"
+                "reference": "1c0bec2814a078a81fb86dbc38798bf73418f839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c",
-                "reference": "7c63a7df8a9d38ff9eb9fb982ae8f6a70258c10c",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/1c0bec2814a078a81fb86dbc38798bf73418f839",
+                "reference": "1c0bec2814a078a81fb86dbc38798bf73418f839",
                 "shasum": ""
             },
             "require": {
@@ -689,7 +689,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2014-05-26 00:34:04"
+            "time": "2014-05-26 15:15:28"
         }
     ],
     "packages-dev": [

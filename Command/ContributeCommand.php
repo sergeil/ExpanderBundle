@@ -3,18 +3,19 @@
 namespace Sli\ExpanderBundle\Command;
 
 use Sli\ExpanderBundle\Misc\KernelProxy;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\TableHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class ContributeCommand extends ContainerAwareCommand
+class ContributeCommand extends AbstractCommand
 {
     // override
     protected function configure()
@@ -27,31 +28,40 @@ class ContributeCommand extends ContainerAwareCommand
         ;
     }
 
-    // override
-    protected function execute(InputInterface $input, OutputInterface $output)
+    private function isAppropriateBundle(BundleInterface $bundle)
     {
-        $kernel = new KernelProxy('dev', true);
-        $kernel->boot();
+        // we are not going to let to contribute to bundle with these namespaces
+        $ignores = array('Symfony', 'Sensio', 'Doctrine', 'Knp', 'Sli', 'FOS');
 
-        $kernel->cleanUp();
+        foreach ($ignores as $namespace) {
+            if (substr($bundle->getNamespace(), 0, strlen($namespace)) == $namespace) {
+                return false;
+            }
+        }
 
+        return true;
+    }
+
+    // override
+    protected function doExecute(KernelProxy $kernelProxy, InputInterface $input, OutputInterface $output)
+    {
         $idArg = $input->getArgument('id');
         $bundleFilterArg = $input->getArgument('bundle-filter');
 
-        $extensionPoint = $kernel->getExtensionPoint($idArg);
+        $extensionPoint = $kernelProxy->getExtensionPoint($idArg);
         if (!$extensionPoint) {
             throw new \RuntimeException("Unable to find an extension point with ID '$idArg'.");
         }
 
         $bundlesToIterate = array();
         if (null !== $bundleFilterArg) {
-            foreach ($kernel->getBundles() as $bundle) {
+            foreach ($kernelProxy->getBundles() as $bundle) {
                 if (false !== strpos($bundle->getName(), $bundleFilterArg)) {
                     $bundlesToIterate[] = $bundle;
                 }
             }
         } else {
-            $bundlesToIterate = $kernel->getBundles();
+            $bundlesToIterate = $kernelProxy->getBundles();
         }
 
         $bundleToGenerateTo = null;
@@ -63,8 +73,7 @@ class ContributeCommand extends ContainerAwareCommand
             $bundles = array();
             $rows = array();
             foreach ($bundlesToIterate as $bundle) {
-                // ignoring symfony bundles
-                if (substr($bundle->getNamespace(), 0, strlen('Symfony')) == 'Symfony') {
+                if (!$this->isAppropriateBundle($bundle)) {
                     continue;
                 }
 
@@ -107,7 +116,5 @@ class ContributeCommand extends ContainerAwareCommand
         }
 
         $generator->generate($bundleToGenerateTo, $extensionPoint, $input, $output, $this->getHelperSet());
-
-        $kernel->cleanUp();
     }
 } 

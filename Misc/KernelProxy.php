@@ -15,10 +15,9 @@ use Symfony\Component\Filesystem\Filesystem;
  * This kernel class caches used by container ContainerBuilder which allows later to introspect what
  * compiler passed have been used to build a container.
  *
- * @author    Sergei Lissovski <sergei.lissovski@modera.org>
- * @copyright 2014 Modera Foundation
+ * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class KernelProxy extends \AppKernel
+class KernelProxy extends \AppKernel // nasty one
 {
     /** @var ContainerBuilder */
     private $containerBuilder;
@@ -98,5 +97,10 @@ class KernelProxy extends \AppKernel
         $filesystem = new Filesystem();
         $filesystem->remove($this->getCacheDir());
         $filesystem->remove($this->getLogDir());
+    }
+
+    static public function clazz()
+    {
+        return get_called_class();
     }
 }

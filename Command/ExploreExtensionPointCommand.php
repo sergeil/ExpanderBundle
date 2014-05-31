@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class ExploreExtensionPointCommand extends ContainerAwareCommand
+class ExploreExtensionPointCommand extends AbstractCommand
 {
     // override
     protected function configure()
@@ -21,22 +21,18 @@ class ExploreExtensionPointCommand extends ContainerAwareCommand
         $this
             ->setName('sli:expander:explore-extension-point')
             ->addArgument('id', InputArgument::REQUIRED)
+            ->setDescription('Provides detailed information about an extension point.')
         ;
     }
 
     // override
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function doExecute(KernelProxy $kernelProxy, InputInterface $input, OutputInterface $output)
     {
-        $kernel = new KernelProxy('dev', true);
-        $kernel->boot();
-
-        $kernel->cleanUp();
-
         $idArg = $input->getArgument('id');
 
         /* @var ExtensionPoint $extensionPoint */
         $extensionPoint = null;
-        foreach ($kernel->getExtensionCompilerPasses() as $pass) {
+        foreach ($kernelProxy->getExtensionCompilerPasses() as $pass) {
             /** @var CompositeContributorsProviderCompilerPass $pass */
 
             $iteratedExtensionPoint = $pass->getExtensionPoint();
@@ -45,8 +41,6 @@ class ExploreExtensionPointCommand extends ContainerAwareCommand
                 $extensionPoint = $iteratedExtensionPoint;
             }
         }
-
-        $kernel->cleanUp();
 
         if (!$extensionPoint) {
             throw new \RuntimeException("Extension point with ID '$idArg' is not found.");

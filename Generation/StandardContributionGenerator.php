@@ -64,6 +64,21 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
     }
 
     /**
+     * @return string
+     */
+    protected function getServiceXmlTemplate()
+    {
+        return <<<TPL
+
+        <service id="%id%"
+                 class="%class_name%">
+
+            <tag name="%tag_name%" />
+        </service>
+TPL;
+    }
+
+    /**
      * @throws \RuntimeException
      *
      * @param string $servicesFilename
@@ -74,14 +89,7 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
      */
     protected function compileServicesXml($servicesXml, BundleInterface $bundle, ExtensionPoint $ep)
     {
-        $tpl = <<<TPL
-
-        <service id="%id%"
-                 class="%class_name%">
-
-            <tag name="%tag_name%" />
-        </service>
-TPL;
+        $tpl = $this->getServiceXmlTemplate();
 
         $bundleServicesNamespace = substr(Inflector::tableize($bundle->getName()), 0, -1 * strlen('_bundle'));
         $serviceId = $bundleServicesNamespace . '.contributions.' . Inflector::tableize($this->config['className']);
@@ -122,14 +130,11 @@ TPL;
     }
 
     /**
-     * @param BundleInterface $bundle
-     * @param ExtensionPoint $ep
-     *
      * @return string
      */
-    protected function compileContributionClassTemplate(BundleInterface $bundle, ExtensionPoint $ep)
+    protected function getContributionClassTemplate()
     {
-        $tpl = <<<TPL
+        return <<<TPL
 <?php
 
 namespace %namespace%\Contributions;
@@ -148,6 +153,17 @@ class %class_name% implements ContributorInterface
     }
 }
 TPL;
+    }
+
+    /**
+     * @param BundleInterface $bundle
+     * @param ExtensionPoint $ep
+     *
+     * @return string
+     */
+    protected function compileContributionClassTemplate(BundleInterface $bundle, ExtensionPoint $ep)
+    {
+        $tpl = $this->getContributionClassTemplate();
 
         return str_replace(
             array('%namespace%', '%class_name%'), array($bundle->getNamespace(), $this->config['className']), $tpl

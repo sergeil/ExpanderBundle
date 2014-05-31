@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @author    Sergei Lissovski <sergei.lissovski@modera.org>
  * @copyright 2014 Modera Foundation
  */
-class ListExtensionPointsCommand extends ContainerAwareCommand
+class ListExtensionPointsCommand extends AbstractCommand
 {
     // override
     protected function configure()
@@ -33,21 +33,16 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
     }
 
     // override
-    public function execute(InputInterface $input, OutputInterface $output)
+    protected function doExecute(KernelProxy $kernelProxy, InputInterface $input, OutputInterface $output)
     {
         $this->getApplication()->setAutoExit(false);
-
-        $kernel = new KernelProxy('dev', true);
-        $kernel->boot();
-
-        $kernel->cleanUp();
 
         $i = 0;
 
         $idFilter = $input->getArgument('id-filter');
 
         $rows = array();
-        foreach (array_values($kernel->getExtensionCompilerPasses()) as $pass) {
+        foreach (array_values($kernelProxy->getExtensionCompilerPasses()) as $pass) {
             /** @var CompositeContributorsProviderCompilerPass $pass */
 
             $ep = $pass->getExtensionPoint();
@@ -65,8 +60,6 @@ class ListExtensionPointsCommand extends ContainerAwareCommand
 
             $i++;
         }
-
-        $kernel->cleanUp();
 
         /* @var TableHelper $table */
         $table = $this->getHelperSet()->get('table');
