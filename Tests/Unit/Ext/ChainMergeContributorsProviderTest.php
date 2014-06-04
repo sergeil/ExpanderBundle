@@ -31,7 +31,7 @@ class MockOrderAwareContributor implements OrderedContributorInterface
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class CompositeMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
+class ChainMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
 {
     /* @var \Sli\ExpanderBundle\Ext\ChainMergeContributorsProvider $p */
     private $p;
