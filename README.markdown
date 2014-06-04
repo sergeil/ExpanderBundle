@@ -7,7 +7,7 @@ defines some sort of extension-points architecture that leverages CompilerPass a
 
 Add this dependency to your composer.json:
 
-    "sergeil/expander-bundle": "dev-master"
+    "sergeil/expander-bundle": "~1.0"
 
 Update your AppKernel class and add SliExpanderBundle declaration there:
 
