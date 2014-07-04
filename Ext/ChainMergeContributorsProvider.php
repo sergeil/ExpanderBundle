@@ -52,7 +52,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
                 return 1;
             }
 
-            return $a->getOrder() < $a->getOrder() ? 1 : -1;
+            return $b->getOrder() < $a->getOrder() ? 1 : -1;
         });
 
         $contributors = array_merge($orderedContributors, $plainContributors);
