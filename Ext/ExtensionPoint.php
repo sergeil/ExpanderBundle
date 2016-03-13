@@ -8,6 +8,9 @@ use Sli\ExpanderBundle\Generation\StandardContributionGenerator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
+ * Class is used to describe your extension point purpose as well as encapsulates compiler-pass
+ * creation logic.
+ *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
 class ExtensionPoint
@@ -170,6 +173,9 @@ class ExtensionPoint
         return new StandardContributionGenerator($this->generatorConfig);
     }
 
+    /**
+     * @return string
+     */
     public static function clazz()
     {
         return get_called_class();

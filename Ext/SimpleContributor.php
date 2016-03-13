@@ -7,6 +7,9 @@ namespace Sli\ExpanderBundle\Ext;
  */
 class SimpleContributor implements ContributorInterface
 {
+    /**
+     * @var mixed[]
+     */
     private $items = array();
 
     /**

@@ -3,8 +3,8 @@
 namespace Sli\ExpanderBundle\Generation;
 
 use Doctrine\Common\Util\Inflector;
-use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Sli\ExpanderBundle\Ext\ExtensionPoint;
+use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -36,7 +36,7 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
             mkdir($bundle->getPath().'/Contributions');
         }
 
-        if (!isset($this->config['className'])) {
+        while (!isset($this->config['className']) || !$this->isValidClassName($this->config['className'])) {
             /* @var DialogHelper $dialog */
             $dialog = $helperSet->get('dialog');
 
@@ -61,6 +61,20 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
         $output->writeln('Done!');
         $output->writeln(' - New file: '.$contributionFilename);
         $output->writeln(' - Updated: '.$servicesFilename);
+    }
+
+    /**
+     * @private
+     *
+     * @param string $className
+     *
+     * @return bool
+     */
+    public function isValidClassName($className)
+    {
+        // a simple validation against accidental mistyping rather than
+        // a fully-fledged class name validation
+        return '' !== $className && false === strpos($className, ' ');
     }
 
     /**

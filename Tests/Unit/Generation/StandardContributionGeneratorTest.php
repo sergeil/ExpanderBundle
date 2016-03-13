@@ -42,11 +42,26 @@ XML;
         $output = \Phake::mock('Symfony\Component\Console\Output\OutputInterface');
         $helperSet = \Phake::mock('Symfony\Component\Console\Helper\HelperSet');
 
-        \Phake::when($bundle)->getPath()->thenReturn($this->dir);
-        \Phake::when($bundle)->getName()->thenReturn('SliExpanderDummyBundle');
-        \Phake::when($bundle)->getNamespace()->thenReturn('FooNamespace');
+        \Phake
+            ::when($bundle)
+            ->getPath()
+            ->thenReturn($this->dir)
+        ;
+        \Phake
+            ::when($bundle)
+            ->getName()
+            ->thenReturn('SliExpanderDummyBundle')
+        ;
+        \Phake
+            ::when($bundle)
+            ->getNamespace()
+            ->thenReturn('FooNamespace')
+        ;
 
-        \Phake::when($ep)->getBatchContributionTag()->thenReturn('blah_foo_tag');
+        \Phake::when($ep)
+            ->getBatchContributionTag()
+            ->thenReturn('blah_foo_tag')
+        ;
 
         $this->mocks = array(
             $bundle, $ep, $input, $output, $helperSet,
@@ -83,10 +98,18 @@ XML;
         $g = new StandardContributionGenerator(array());
 
         $dialogHelper = \Phake::mock('Symfony\Component\Console\Helper\DialogHelper');
-        \Phake::when($dialogHelper)->ask(\Phake::anyParameters())->thenReturn('BarContribution');
+        \Phake
+            ::when($dialogHelper)
+            ->ask(\Phake::anyParameters())
+            ->thenReturn('BarContribution')
+        ;
 
         $helperSet = $this->mocks[4];
-        \Phake::when($helperSet)->get('dialog')->thenReturn($dialogHelper);
+        \Phake
+            ::when($helperSet)
+            ->get('dialog')
+            ->thenReturn($dialogHelper)
+        ;
 
         $g->generate(
             $this->mocks[0], $this->mocks[1], $this->mocks[2], $this->mocks[3], $this->mocks[4]
@@ -97,5 +120,14 @@ XML;
         $this->assertTrue(false !== strpos($servicesXmlContents, 'class="FooNamespace\\Contributions\\BarContribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, 'id="sli_expander_dummy.contributions.bar_contribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, '<tag name="blah_foo_tag" />'));
+    }
+
+    public function testIsValidClassName()
+    {
+        $g = new StandardContributionGenerator(array());
+
+        $this->assertFalse($g->isValidClassName(''));
+        $this->assertFalse($g->isValidClassName('Foo bar')); // there's a space
+        $this->assertTrue($g->isValidClassName('Foobar'));
     }
 }

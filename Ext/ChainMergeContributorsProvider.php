@@ -12,6 +12,9 @@ namespace Sli\ExpanderBundle\Ext;
  */
 class ChainMergeContributorsProvider implements ChainContributorsProviderInterface
 {
+    /**
+     * @var array
+     */
     private $contributors = array();
 
     /**
@@ -74,6 +77,9 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public static function clazz()
     {
         return get_called_class();

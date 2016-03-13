@@ -16,7 +16,7 @@ interface ChainContributorsProviderInterface extends ContributorInterface
     public function addContributor(ContributorInterface $contributor);
 
     /**
-     * @return \Sli\ExpanderBundle\Ext\ContributorInterface[]
+     * @return ContributorInterface[]
      */
     public function getContributors();
 }
