@@ -21,8 +21,8 @@ class BundleContributorAdapter implements ContributorInterface
 
     /**
      * @param HttpKernelInterface $kernel
-     * @param string $bundleName
-     * @param string $extensionPointName
+     * @param string              $bundleName
+     * @param string              $extensionPointName
      */
     public function __construct(KernelInterface $kernel, $bundleName, $extensionPointName)
     {
@@ -32,7 +32,7 @@ class BundleContributorAdapter implements ContributorInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getItems()
     {
@@ -40,9 +40,8 @@ class BundleContributorAdapter implements ContributorInterface
         if ($bundle instanceof ExtensionPointsAwareBundleInterface) {
             $contributions = $bundle->getExtensionPointContributions();
 
-            if (   is_array($contributions) && isset($contributions[$this->extensionPointName])
+            if (is_array($contributions) && isset($contributions[$this->extensionPointName])
                 && is_array($contributions[$this->extensionPointName])) {
-
                 return $contributions[$this->extensionPointName];
             }
         } else {
@@ -55,8 +54,8 @@ class BundleContributorAdapter implements ContributorInterface
         return array();
     }
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }
-} 
+}

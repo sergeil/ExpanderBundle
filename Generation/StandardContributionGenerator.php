@@ -26,14 +26,14 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
     }
 
     /**
-     * @inheritDOc
+     * {@inheritdoc}
      */
     public function generate(BundleInterface $bundle, ExtensionPoint $ep, InputInterface $input, OutputInterface $output, HelperSet $helperSet)
     {
-        if (!file_exists($bundle->getPath() . '/Contributions')) {
+        if (!file_exists($bundle->getPath().'/Contributions')) {
             $output->writeln('Creating contributions directory ...');
 
-            mkdir($bundle->getPath() . '/Contributions');
+            mkdir($bundle->getPath().'/Contributions');
         }
 
         if (!isset($this->config['className'])) {
@@ -43,12 +43,12 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
             $this->config['className'] = $dialog->ask($output, '<info>Please specify a contribution class name:</info> ');
         }
 
-        $contributionFilename = $bundle->getPath() . '/Contributions/' . $this->config['className'] . '.php';
+        $contributionFilename = $bundle->getPath().'/Contributions/'.$this->config['className'].'.php';
         if (file_exists($contributionFilename)) {
             throw new \RuntimeException("File '$contributionFilename' already exists!");
         }
 
-        $servicesFilename = $bundle->getPath() . '/Resources/config/services.xml';
+        $servicesFilename = $bundle->getPath().'/Resources/config/services.xml';
         if (!file_exists($servicesFilename)) {
             throw new \RuntimeException("File '$servicesFilename' doesn't exist.");
         }
@@ -59,8 +59,8 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
         file_put_contents($servicesFilename, $this->compileServicesXml($servicesXml, $bundle, $ep));
 
         $output->writeln('Done!');
-        $output->writeln(' - New file: ' . $contributionFilename);
-        $output->writeln(' - Updated: ' . $servicesFilename);
+        $output->writeln(' - New file: '.$contributionFilename);
+        $output->writeln(' - Updated: '.$servicesFilename);
     }
 
     /**
@@ -81,9 +81,9 @@ TPL;
     /**
      * @throws \RuntimeException
      *
-     * @param string $servicesFilename
+     * @param string          $servicesFilename
      * @param BundleInterface $bundle
-     * @param ExtensionPoint $ep
+     * @param ExtensionPoint  $ep
      *
      * @return string
      */
@@ -92,9 +92,9 @@ TPL;
         $tpl = $this->getServiceXmlTemplate();
 
         $bundleServicesNamespace = substr(Inflector::tableize($bundle->getName()), 0, -1 * strlen('_bundle'));
-        $serviceId = $bundleServicesNamespace . '.contributions.' . Inflector::tableize($this->config['className']);
+        $serviceId = $bundleServicesNamespace.'.contributions.'.Inflector::tableize($this->config['className']);
 
-        $className = $bundle->getNamespace() . '\\Contributions\\' . $this->config['className'];
+        $className = $bundle->getNamespace().'\\Contributions\\'.$this->config['className'];
 
         $tagName = $ep->getBatchContributionTag();
 
@@ -104,7 +104,7 @@ TPL;
         $servicesXmlAsArray = explode("\n", $servicesXml);
 
         $closingServicesTagIndex = null;
-        foreach ($servicesXmlAsArray as $lineIndex=>$rootLine) {
+        foreach ($servicesXmlAsArray as $lineIndex => $rootLine) {
             // we are going to add a new service right before a closing </services> tag
             if (trim($rootLine) == '</services>') {
                 $closingServicesTagIndex = $lineIndex;
@@ -116,7 +116,7 @@ TPL;
         }
 
         $resultXmlArray = array();
-        foreach ($servicesXmlAsArray as $lineIndex=>$rootLine) {
+        foreach ($servicesXmlAsArray as $lineIndex => $rootLine) {
             if ($lineIndex == $closingServicesTagIndex) {
                 foreach ($compiledServiceXmlAsArray as $innerLine) {
                     $resultXmlArray[] = $innerLine;
@@ -157,7 +157,7 @@ TPL;
 
     /**
      * @param BundleInterface $bundle
-     * @param ExtensionPoint $ep
+     * @param ExtensionPoint  $ep
      *
      * @return string
      */

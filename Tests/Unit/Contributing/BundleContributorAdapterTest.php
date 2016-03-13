@@ -3,9 +3,7 @@
 namespace Sli\ExpanderBundle\Tests\Unit\Contributing;
 
 use Sli\ExpanderBundle\Contributing\BundleContributorAdapter;
-use Sli\ExpanderBundle\Contributing\ExtensionPointsAwareBundleInterface;
 use Sli\ExpanderBundle\Tests\Unit\FooDummyBundle;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>

@@ -6,7 +6,6 @@ use Sli\ExpanderBundle\Contributing\ExtensionPointsAwareBundlesCollectorCompiler
 use Sli\ExpanderBundle\Tests\Unit\FooDummyBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
 use Symfony\Component\DependencyInjection\Reference;
 
 class DummyContainerBuilder extends ContainerBuilder
@@ -33,13 +32,13 @@ class ExtensionPointsAwareBundlesCollectorCompilerPassTest extends \PHPUnit_Fram
             'foo_ep' => array(
             ),
             'bar_ep' => array(
-            )
+            ),
         );
 
         $bundle2 = \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface');
         $bundle3 = new FooDummyBundle();
         $bundle3->map = array(
-            'baz_ep' => array()
+            'baz_ep' => array(),
         );
 
         $kernel = \Phake::mock('Symfony\Component\HttpKernel\KernelInterface');
@@ -60,7 +59,7 @@ class ExtensionPointsAwareBundlesCollectorCompilerPassTest extends \PHPUnit_Fram
             $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $args[0]);
             /* @var Reference $kernelArg*/
             $kernelArg = $args[0];
-            $this->assertEquals('kernel', (string)$kernelArg);
+            $this->assertEquals('kernel', (string) $kernelArg);
 
             $this->assertNotNull($args[1]);
         }
@@ -80,4 +79,4 @@ class ExtensionPointsAwareBundlesCollectorCompilerPassTest extends \PHPUnit_Fram
         $this->assertEquals($bundle1->getName(), $definition3->getArgument(1));
         $this->assertEquals('baz_ep', $definition3->getArgument(2));
     }
-} 
+}

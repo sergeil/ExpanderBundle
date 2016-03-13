@@ -12,13 +12,13 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
 
             new Sli\ExpanderBundle\SliExpanderBundle($this),
-            new \Sli\ExpanderBundle\Tests\Fixtures\Bundles\DummyBundle\SliExpanderDummyBundle()
+            new \Sli\ExpanderBundle\Tests\Fixtures\Bundles\DummyBundle\SliExpanderDummyBundle(),
         );
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__ . '/config/config.yml');
+        $loader->load(__DIR__.'/config/config.yml');
     }
 
     /**
@@ -26,7 +26,7 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return sys_get_temp_dir() . '/SliExpanderBundle/cache';
+        return sys_get_temp_dir().'/SliExpanderBundle/cache';
     }
 
     /**
@@ -34,6 +34,6 @@ class AppKernel extends Kernel
      */
     public function getLogDir()
     {
-        return sys_get_temp_dir() . '/SliExpanderBundle/logs';
+        return sys_get_temp_dir().'/SliExpanderBundle/logs';
     }
 }

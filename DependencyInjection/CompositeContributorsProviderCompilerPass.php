@@ -40,10 +40,10 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     /**
      * @deprecated  Use \Sli\ExpanderBundle\Ext\ExtensionPoint::createCompilerPass() method instead!
      *
-     * @param string $providerServiceId  This compiler class will contribute a new service with this ID to the
-     *                                   container, it will be an instance of the ChainMergeContributorsProvider class
-     * @param null|string $contributorServiceTagName  And the aforementioned instance will collect services from the
-     *                                                container which were tagger with this ID
+     * @param string              $providerServiceId         This compiler class will contribute a new service with this ID to the
+     *                                                       container, it will be an instance of the ChainMergeContributorsProvider class
+     * @param null|string         $contributorServiceTagName And the aforementioned instance will collect services from the
+     *                                                       container which were tagger with this ID
      * @param null|ExtensionPoint $extensionPoint
      */
     public function __construct($providerServiceId, $contributorServiceTagName = null, ExtensionPoint $extensionPoint = null)
@@ -54,13 +54,13 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
         $providerDef = new Definition(ChainMergeContributorsProvider::clazz());
         $container->addDefinitions(array(
-            $this->getProviderServiceId() => $providerDef
+            $this->getProviderServiceId() => $providerDef,
         ));
 
         $contributors = $container->findTaggedServiceIds($this->getContributorServiceTagName());
@@ -80,7 +80,7 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     /**
      * @return string
      */
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }

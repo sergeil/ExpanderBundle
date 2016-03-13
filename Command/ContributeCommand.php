@@ -67,7 +67,7 @@ class ContributeCommand extends AbstractCommand
 
         if (count($bundlesToIterate) == 1) {
             $bundleToGenerateTo = $bundlesToIterate[0];
-        } else if (count($bundlesToIterate) > 1) {
+        } elseif (count($bundlesToIterate) > 1) {
             /* @var Bundle[] $bundles */
             $bundles = array();
             $rows = array();
@@ -81,7 +81,7 @@ class ContributeCommand extends AbstractCommand
                 $bundles[$index] = $bundle;
 
                 $rows[] = array(
-                    $index, $bundle->getName(), $bundle->getPath()
+                    $index, $bundle->getName(), $bundle->getPath(),
                 );
             }
 
@@ -98,7 +98,7 @@ class ContributeCommand extends AbstractCommand
 
             $bundleIndex = $dialog->ask($output, '<info>Please specify bundle # you want to contribute to:</info> ');
             if (!isset($bundles[$bundleIndex])) {
-                throw new \RuntimeException("Unable to find a bundle with given index.");
+                throw new \RuntimeException('Unable to find a bundle with given index.');
             }
 
             $bundleToGenerateTo = $bundles[$bundleIndex];
@@ -116,4 +116,4 @@ class ContributeCommand extends AbstractCommand
 
         $generator->generate($bundleToGenerateTo, $extensionPoint, $input, $output, $this->getHelperSet());
     }
-} 
+}

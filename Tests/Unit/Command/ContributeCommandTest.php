@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Here we are testing only a "happy path" scenario
+ * Here we are testing only a "happy path" scenario.
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
@@ -33,7 +33,7 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
         \Phake::when($extensionPoint)->getContributionGenerator()->thenReturn($generator);
 
         $bundles = array(
-            \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface')
+            \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface'),
         );
 
         $kernelProxy = \Phake::mock(KernelProxy::clazz());
@@ -45,7 +45,7 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
 
         $tester->execute(array(
             'command' => 'sli:expander:contribute',
-            'id' => $epId
+            'id' => $epId,
         ));
 
         \Phake::verify($generator)->generate(
@@ -62,4 +62,4 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Symfony\Component\Console\Output\OutputInterface', $targetOutput);
         $this->assertInstanceOf('Symfony\Component\Console\Helper\HelperSet', $targetHelperSet);
     }
-} 
+}

@@ -18,12 +18,10 @@ interface ContributionGeneratorInterface
 {
     /**
      * @param BundleInterface $bundle
-     * @param ExtensionPoint $ep
-     * @param InputInterface $input
+     * @param ExtensionPoint  $ep
+     * @param InputInterface  $input
      * @param OutputInterface $output
-     * @param HelperSet $helperSet
-     *
-     * @return void
+     * @param HelperSet       $helperSet
      */
     public function generate(BundleInterface $bundle, ExtensionPoint $ep, InputInterface $input, OutputInterface $output, HelperSet $helperSet);
-} 
+}

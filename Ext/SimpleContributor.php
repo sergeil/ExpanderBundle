@@ -2,8 +2,6 @@
 
 namespace Sli\ExpanderBundle\Ext;
 
-use Sli\ExpanderBundle\Ext\ContributorInterface;
-
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */

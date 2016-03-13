@@ -6,6 +6,7 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "authors": [
         {
             "name": "Sergei Lissovski",

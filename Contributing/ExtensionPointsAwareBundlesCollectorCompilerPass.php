@@ -33,22 +33,21 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
 
     /**
      * @param BundleInterface $bundle
-     * @param string $extensionPointName
+     * @param string          $extensionPointName
      */
     private function createServiceName(BundleInterface $bundle, $extensionPointName)
     {
-        return strtolower($bundle->getName() . '.dynamic_contribution.' . str_replace('.', '_', $extensionPointName));
+        return strtolower($bundle->getName().'.dynamic_contribution.'.str_replace('.', '_', $extensionPointName));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
         foreach ($this->kernel->getBundles() as $bundle) {
             if ($bundle instanceof ExtensionPointsAwareBundleInterface) {
                 foreach ($bundle->getExtensionPointContributions() as $extensionPointName => $contributions) {
-
                     $serviceName = $this->createServiceName($bundle, $extensionPointName);
 
                     if ($container->hasDefinition($serviceName)) {
@@ -70,4 +69,4 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
             }
         }
     }
-} 
+}

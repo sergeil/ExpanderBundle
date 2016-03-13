@@ -10,13 +10,13 @@ use Sli\ExpanderBundle\Ext\ContributorInterface;
 class DummyResourcesProvider implements ContributorInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getItems()
     {
         return array(
             'foo_resource',
-            'bar_resource'
+            'bar_resource',
         );
     }
-} 
+}

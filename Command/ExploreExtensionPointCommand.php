@@ -32,7 +32,7 @@ class ExploreExtensionPointCommand extends AbstractCommand
         /* @var ExtensionPoint $extensionPoint */
         $extensionPoint = null;
         foreach ($kernelProxy->getExtensionCompilerPasses() as $pass) {
-            /** @var CompositeContributorsProviderCompilerPass $pass */
+            /* @var CompositeContributorsProviderCompilerPass $pass */
 
             $iteratedExtensionPoint = $pass->getExtensionPoint();
 

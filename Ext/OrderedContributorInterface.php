@@ -13,7 +13,7 @@ namespace Sli\ExpanderBundle\Ext;
 interface OrderedContributorInterface extends ContributorInterface
 {
     /**
-     * @return integer
+     * @return int
      */
     public function getOrder();
 }

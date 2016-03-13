@@ -26,14 +26,14 @@ class SliExpanderDummyBundle extends Bundle implements ExtensionPointsAwareBundl
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getExtensionPointContributions()
     {
         return array(
             'sli_expander.dummy_resources_provider' => array(
-                'baz_resource'
-            )
+                'baz_resource',
+            ),
         );
     }
 }

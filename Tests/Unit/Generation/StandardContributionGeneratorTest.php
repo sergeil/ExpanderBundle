@@ -16,11 +16,11 @@ class StandardContributionGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->dir = sys_get_temp_dir() . '/sli-expander-gentest';
+        $this->dir = sys_get_temp_dir().'/sli-expander-gentest';
         if (!file_exists($this->dir)) {
             $fs = new Filesystem();
 
-            $fs->mkdir(array($this->dir, $this->dir . '/Resources/config'));
+            $fs->mkdir(array($this->dir, $this->dir.'/Resources/config'));
 
             $servicesXmlContents = <<<XML
 <?xml version="1.0" ?>
@@ -33,7 +33,7 @@ class StandardContributionGeneratorTest extends \PHPUnit_Framework_TestCase
     </services>
 </container>
 XML;
-            file_put_contents($this->dir . '/Resources/config/services.xml', $servicesXmlContents);
+            file_put_contents($this->dir.'/Resources/config/services.xml', $servicesXmlContents);
         }
 
         $bundle = \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface');
@@ -49,7 +49,7 @@ XML;
         \Phake::when($ep)->getBatchContributionTag()->thenReturn('blah_foo_tag');
 
         $this->mocks = array(
-            $bundle, $ep, $input, $output, $helperSet
+            $bundle, $ep, $input, $output, $helperSet,
         );
     }
 
@@ -67,12 +67,12 @@ XML;
             $this->mocks[0], $this->mocks[1], $this->mocks[2], $this->mocks[3], $this->mocks[4]
         );
 
-        $this->assertTrue(file_exists($this->dir . '/Contributions/FooContribution.php'));
-        $classContents = file_get_contents($this->dir . '/Contributions/FooContribution.php');
+        $this->assertTrue(file_exists($this->dir.'/Contributions/FooContribution.php'));
+        $classContents = file_get_contents($this->dir.'/Contributions/FooContribution.php');
         $this->assertTrue(false !== strpos($classContents, 'namespace FooNamespace\\Contributions'));
 
-        $this->assertTrue(file_exists($this->dir . '/Resources/config/services.xml'));
-        $servicesXmlContents = file_get_contents($this->dir . '/Resources/config/services.xml');
+        $this->assertTrue(file_exists($this->dir.'/Resources/config/services.xml'));
+        $servicesXmlContents = file_get_contents($this->dir.'/Resources/config/services.xml');
         $this->assertTrue(false !== strpos($servicesXmlContents, 'class="FooNamespace\\Contributions\\FooContribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, 'id="sli_expander_dummy.contributions.foo_contribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, '<tag name="blah_foo_tag" />'));
@@ -92,8 +92,8 @@ XML;
             $this->mocks[0], $this->mocks[1], $this->mocks[2], $this->mocks[3], $this->mocks[4]
         );
 
-        $this->assertTrue(file_exists($this->dir . '/Resources/config/services.xml'));
-        $servicesXmlContents = file_get_contents($this->dir . '/Resources/config/services.xml');
+        $this->assertTrue(file_exists($this->dir.'/Resources/config/services.xml'));
+        $servicesXmlContents = file_get_contents($this->dir.'/Resources/config/services.xml');
         $this->assertTrue(false !== strpos($servicesXmlContents, 'class="FooNamespace\\Contributions\\BarContribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, 'id="sli_expander_dummy.contributions.bar_contribution"'));
         $this->assertTrue(false !== strpos($servicesXmlContents, '<tag name="blah_foo_tag" />'));

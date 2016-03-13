@@ -15,7 +15,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
     private $contributors = array();
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addContributor(ContributorInterface $contributor)
     {
@@ -23,7 +23,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getContributors()
     {
@@ -31,7 +31,8 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
+     *
      * @throws \RuntimeException
      */
     public function getItems()
@@ -47,7 +48,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
         }
 
         // @ is required to avoid having errors thrown by some versions of PHP
-        @usort($orderedContributors, function(OrderedContributorInterface $a, OrderedContributorInterface $b) {
+        @usort($orderedContributors, function (OrderedContributorInterface $a, OrderedContributorInterface $b) {
             if ($a->getOrder() == $b->getOrder()) {
                 return 1;
             }
@@ -73,7 +74,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
         return $result;
     }
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }

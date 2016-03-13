@@ -3,7 +3,6 @@
 namespace Sli\ExpanderBundle\Tests\Unit\DependencyInjection;
 
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
@@ -22,7 +21,7 @@ class CompositeContributorsProviderCompilerPassTest extends \PHPUnit_Framework_T
         $cb = new MockContainerBuilder();
         $cb->services = array(
             'service1foo' => 'def',
-            'service2bar' => 'def'
+            'service2bar' => 'def',
         );
 
         $cp = new CompositeContributorsProviderCompilerPass('fooServiceId', 'barServiceId');

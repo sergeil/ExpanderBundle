@@ -10,7 +10,7 @@ class FooDummyBundle extends Bundle implements ExtensionPointsAwareBundleInterfa
     public $map = array();
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getExtensionPointContributions()
     {

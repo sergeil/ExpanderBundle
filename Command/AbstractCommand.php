@@ -35,14 +35,14 @@ abstract class AbstractCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param KernelProxy $kernelProxyProxy
-     * @param InputInterface $input
+     * @param KernelProxy     $kernelProxyProxy
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     abstract protected function doExecute(KernelProxy $kernelProxyProxy, InputInterface $input, OutputInterface $output);
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }
-} 
+}

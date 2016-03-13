@@ -35,4 +35,4 @@ class ListExtensionPointsCommandTest extends FunctionalTestCase
         $this->assertRegExp('/sli_expander.blah_resources/', $commandTester->getDisplay());
         $this->assertNotRegExp('/sli_expander.dummy_resources/', $commandTester->getDisplay());
     }
-} 
+}

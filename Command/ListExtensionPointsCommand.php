@@ -40,7 +40,7 @@ class ListExtensionPointsCommand extends AbstractCommand
 
         $rows = array();
         foreach (array_values($kernelProxy->getExtensionCompilerPasses()) as $pass) {
-            /** @var CompositeContributorsProviderCompilerPass $pass */
+            /* @var CompositeContributorsProviderCompilerPass $pass */
 
             $ep = $pass->getExtensionPoint();
 
@@ -52,10 +52,10 @@ class ListExtensionPointsCommand extends AbstractCommand
                 $i + 1,
                 $ep->getId(),
                 $ep->isDetailedDescriptionAvailable() ? 'Yes' : 'No',
-                $ep ? $ep->getDescription() : ''
+                $ep ? $ep->getDescription() : '',
             );
 
-            $i++;
+            ++$i;
         }
 
         /* @var TableHelper $table */
@@ -74,8 +74,8 @@ class ListExtensionPointsCommand extends AbstractCommand
             $extensionPointId = null;
 
             if (null !== $answer) {
-                $extensionPointId = $rows[$answer-1][1];
-                $this->getApplication()->run(new StringInput('sli:expander:explore-extension-point ' . $extensionPointId));
+                $extensionPointId = $rows[$answer - 1][1];
+                $this->getApplication()->run(new StringInput('sli:expander:explore-extension-point '.$extensionPointId));
             }
 
             $question = 'Would you like to create a contribution to this extension-point right away ? ';
@@ -84,12 +84,12 @@ class ListExtensionPointsCommand extends AbstractCommand
 
             if ($answer) {
                 $output->writeln('');
-                $this->getApplication()->run(new StringInput('sli:expander:contribute ' . $extensionPointId));
+                $this->getApplication()->run(new StringInput('sli:expander:contribute '.$extensionPointId));
             }
         }
     }
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }

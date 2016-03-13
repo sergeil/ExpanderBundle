@@ -55,4 +55,4 @@ class ExtensionPointTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->ep->isDetailedDescriptionAvailable());
     }
-} 
+}

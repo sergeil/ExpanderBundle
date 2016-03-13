@@ -17,4 +17,4 @@ interface ExtensionPointsAwareBundleInterface
      * @return array
      */
     public function getExtensionPointContributions();
-} 
+}

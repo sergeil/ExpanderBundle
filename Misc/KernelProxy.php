@@ -23,7 +23,7 @@ class KernelProxy extends \AppKernel // nasty one
     private $containerBuilder;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function buildContainer()
     {
@@ -64,7 +64,7 @@ class KernelProxy extends \AppKernel // nasty one
         /* @var ExtensionPoint $extensionPoint */
         $extensionPoint = null;
         foreach ($this->getExtensionCompilerPasses() as $pass) {
-            /** @var CompositeContributorsProviderCompilerPass $pass */
+            /* @var CompositeContributorsProviderCompilerPass $pass */
 
             $iteratedExtensionPoint = $pass->getExtensionPoint();
 
@@ -73,23 +73,23 @@ class KernelProxy extends \AppKernel // nasty one
             }
         }
 
-        return null;
+        return;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getCacheDir()
     {
-        return sys_get_temp_dir() . '/sli-kernelproxy/cache';
+        return sys_get_temp_dir().'/sli-kernelproxy/cache';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLogDir()
     {
-        return sys_get_temp_dir() . '/sli-kernelproxy/logs';
+        return sys_get_temp_dir().'/sli-kernelproxy/logs';
     }
 
     public function cleanUp()
@@ -99,7 +99,7 @@ class KernelProxy extends \AppKernel // nasty one
         $filesystem->remove($this->getLogDir());
     }
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }

@@ -2,13 +2,10 @@
 
 namespace Sli\ExpanderBundle\Ext;
 
-use Doctrine\Common\Util\Inflector;
 use Sli\ExpanderBundle\DependencyInjection\CompositeContributorsProviderCompilerPass;
 use Sli\ExpanderBundle\Generation\ContributionGeneratorInterface;
 use Sli\ExpanderBundle\Generation\StandardContributionGenerator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
@@ -32,12 +29,12 @@ class ExtensionPoint
 
     /**
      * @param string $id
-     * @param array $generatorConfig
+     * @param array  $generatorConfig
      */
     public function __construct($id, array $generatorConfig = array())
     {
         $this->id = $id;
-        $this->batchContributionTag = $id . '_provider';
+        $this->batchContributionTag = $id.'_provider';
         $this->generatorConfig = $generatorConfig;
     }
 
@@ -173,7 +170,7 @@ class ExtensionPoint
         return new StandardContributionGenerator($this->generatorConfig);
     }
 
-    static public function clazz()
+    public static function clazz()
     {
         return get_called_class();
     }
