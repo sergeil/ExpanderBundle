@@ -17,6 +17,10 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
     public function testExecute()
     {
         $kernel = \Phake::mock('Symfony\Component\HttpKernel\KernelInterface');
+        \Phake::when($kernel)
+            ->getBundles()
+            ->thenReturn([])
+        ;
 
         $app = new Application($kernel);
         $app->add(new ContributeCommand());

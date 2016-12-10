@@ -13,7 +13,7 @@ use Symfony\Component\Filesystem\Filesystem;
  * This class is not a part of a public API.
  *
  * This kernel class caches used by container ContainerBuilder which allows later to introspect what
- * compiler passed have been used to build a container.
+ * compiler passes have been used to build a container.
  *
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
