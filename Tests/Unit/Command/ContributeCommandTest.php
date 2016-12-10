@@ -16,7 +16,22 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function testExecute()
     {
+        $bundles = array(
+            \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface'),
+        );
+
+        $container = \Phake::mock('Symfony\Component\DependencyInjection\ContainerInterface');
+
         $kernel = \Phake::mock('Symfony\Component\HttpKernel\KernelInterface');
+        \Phake::when($kernel)
+            ->getContainer()
+            ->thenReturn($container)
+        ;
+
+        \Phake::when($kernel)
+            ->getBundles()
+            ->thenReturn($bundles)
+        ;
 
         $app = new Application($kernel);
         $app->add(new ContributeCommand());
@@ -30,16 +45,21 @@ class ContributeCommandTest extends \PHPUnit_Framework_TestCase
 
         $extensionPoint = \Phake::mock('Sli\ExpanderBundle\Ext\ExtensionPoint');
         $epId = 'foo-ep-id';
-        \Phake::when($extensionPoint)->getContributionGenerator()->thenReturn($generator);
-
-        $bundles = array(
-            \Phake::mock('Symfony\Component\HttpKernel\Bundle\BundleInterface'),
-        );
+        \Phake::when($extensionPoint)
+            ->getContributionGenerator()
+            ->thenReturn($generator)
+        ;
 
         $kernelProxy = \Phake::mock(KernelProxy::clazz());
         $command->kernelProxy = $kernelProxy;
-        \Phake::when($kernelProxy)->getExtensionPoint($epId)->thenReturn($extensionPoint);
-        \Phake::when($kernelProxy)->getBundles()->thenReturn($bundles);
+        \Phake::when($kernelProxy)
+            ->getExtensionPoint($epId)
+            ->thenReturn($extensionPoint)
+        ;
+        \Phake::when($kernelProxy)
+            ->getBundles()
+            ->thenReturn($bundles)
+        ;
 
         $tester = new CommandTester($command);
 
