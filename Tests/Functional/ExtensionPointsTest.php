@@ -2,18 +2,22 @@
 
 namespace Sli\ExpanderBundle\Tests\Functional;
 
-use Modera\FoundationBundle\Testing\FunctionalTestCase;
 use Sli\ExpanderBundle\Ext\ContributorInterface;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class ExtensionPointsTest extends FunctionalTestCase
+class ExtensionPointsTest extends WebTestCase
 {
     public function testHowWellItWorks()
     {
+        self::bootKernel();
+
+        $container = self::$kernel->getContainer();
+
         /* @var ContributorInterface $provider */
-        $provider = self::$container->get('sli_expander.dummy_resources_provider');
+        $provider = $container->get('sli_expander.dummy_resources_provider');
 
         $this->assertInstanceOf('Sli\ExpanderBundle\Ext\ContributorInterface', $provider);
 

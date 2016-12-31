@@ -4,11 +4,11 @@ namespace Sli\ExpanderBundle\Generation;
 
 use Doctrine\Common\Util\Inflector;
 use Sli\ExpanderBundle\Ext\ExtensionPoint;
-use Symfony\Component\Console\Helper\DialogHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
@@ -37,10 +37,21 @@ class StandardContributionGenerator implements ContributionGeneratorInterface
         }
 
         while (!isset($this->config['className']) || !$this->isValidClassName($this->config['className'])) {
-            /* @var DialogHelper $dialog */
-            $dialog = $helperSet->get('dialog');
+            $isSymfony2 = substr(Kernel::VERSION, 0, 1) == '2';
 
-            $this->config['className'] = $dialog->ask($output, '<info>Please specify a contribution class name:</info> ');
+            // sf2: http://symfony.com/doc/2.5/components/console/helpers/dialoghelper.html
+            // sf3: http://symfony.com/doc/3.0/components/console/helpers/questionhelper.html
+            $helper = $helperSet->get($isSymfony2 ? 'dialog' :'question');
+
+            if ($isSymfony2) {
+                $this->config['className'] = $helper->ask($output, '<info>Please specify a contribution class name:</info> ');
+            } else {
+                $question = new \Symfony\Component\Console\Question\Question(
+                    '<info>Please specify a contribution class name:</info> '
+                );
+
+                $this->config['className'] = $helper->ask($input, $output, $question);
+            }
         }
 
         $contributionFilename = $bundle->getPath().'/Contributions/'.$this->config['className'].'.php';

@@ -2,19 +2,22 @@
 
 namespace Sli\ExpanderBundle\Tests\Functional\Command;
 
-use Modera\FoundationBundle\Testing\FunctionalTestCase;
+//use Modera\FoundationBundle\Testing\FunctionalTestCase;
 use Sli\ExpanderBundle\Command\ListExtensionPointsCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-class ListExtensionPointsCommandTest extends FunctionalTestCase
+class ListExtensionPointsCommandTest extends WebTestCase
 {
     public function testExecute()
     {
-        $app = new Application(self::$kernel);
+        $kernel = $this->createKernel();
+
+        $app = new Application($kernel);
         $app->add(new ListExtensionPointsCommand());
 
         $command = $app->find('sli:expander:list-extension-points');

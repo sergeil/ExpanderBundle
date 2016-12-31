@@ -5,6 +5,7 @@ namespace Sli\ExpanderBundle\Tests\Unit\Generation;
 use Sli\ExpanderBundle\Ext\ExtensionPoint;
 use Sli\ExpanderBundle\Generation\StandardContributionGenerator;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
@@ -97,7 +98,11 @@ XML;
     {
         $g = new StandardContributionGenerator(array());
 
-        $dialogHelper = \Phake::mock('Symfony\Component\Console\Helper\DialogHelper');
+        $isSymfony2 = substr(Kernel::VERSION, 0, 1) == '2';
+
+        $dialogHelper = \Phake::mock(
+            $isSymfony2 ? 'Symfony\Component\Console\Helper\DialogHelper' : 'Symfony\Component\Console\Helper\QuestionHelper'
+        );
         \Phake
             ::when($dialogHelper)
             ->ask(\Phake::anyParameters())
@@ -107,7 +112,7 @@ XML;
         $helperSet = $this->mocks[4];
         \Phake
             ::when($helperSet)
-            ->get('dialog')
+            ->get($isSymfony2 ? 'dialog' : 'question')
             ->thenReturn($dialogHelper)
         ;
 
