@@ -59,6 +59,7 @@ class CompositeContributorsProviderCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $providerDef = new Definition(ChainMergeContributorsProvider::clazz());
+        $providerDef->setPublic(true);
         $container->addDefinitions(array(
             $this->getProviderServiceId() => $providerDef,
         ));
