@@ -10,7 +10,7 @@ class MockContainerBuilder extends ContainerBuilder
 
     public $services = array();
 
-    public function findTaggedServiceIds($name)
+    public function findTaggedServiceIds($name, $throwOnAbstract = false)
     {
         return $this->services;
     }

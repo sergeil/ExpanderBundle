@@ -2,8 +2,9 @@
 
 namespace Sli\ExpanderBundle\Tests\Unit\Contributing;
 
-use Sli\ExpanderBundle\Contributing\ExtensionPointsAwareBundlesCollectorCompilerPass;
 use Sli\ExpanderBundle\Tests\Unit\FooDummyBundle;
+use Sli\ExpanderBundle\Contributing\BundleContributorAdapter;
+use Sli\ExpanderBundle\Contributing\ExtensionPointsAwareBundlesCollectorCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -49,8 +50,15 @@ class ExtensionPointsAwareBundlesCollectorCompilerPassTest extends \PHPUnit_Fram
         $cp = new ExtensionPointsAwareBundlesCollectorCompilerPass($kernel);
         $cp->process($containerBuilder);
 
-        $this->assertEquals(3, count($containerBuilder->definitions));
-        foreach ($containerBuilder->definitions as $definition) {
+        $definitions = array();
+        foreach ($containerBuilder->definitions as $key => $definition) {
+            if ($definition->getClass() === BundleContributorAdapter::clazz()) {
+                $definitions[$key] = $definition;
+            }
+        }
+
+        $this->assertEquals(3, count($definitions));
+        foreach ($definitions as $definition) {
             $this->assertInstanceOf('Symfony\Component\DependencyInjection\Definition', $definition);
 
             $args = $definition->getArguments();
@@ -65,7 +73,7 @@ class ExtensionPointsAwareBundlesCollectorCompilerPassTest extends \PHPUnit_Fram
         }
 
         /* @var Definition[] $definitions */
-        $definitions = array_values($containerBuilder->definitions);
+        $definitions = array_values($definitions);
 
         $definition1 = $definitions[0];
         $this->assertEquals($bundle1->getName(), $definition1->getArgument(1));
