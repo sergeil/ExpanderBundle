@@ -9,7 +9,6 @@ class AppKernel extends Kernel
     {
         return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
 
             new Sli\ExpanderBundle\SliExpanderBundle($this),
             new \Sli\ExpanderBundle\Tests\Fixtures\Bundles\DummyBundle\SliExpanderDummyBundle(),

@@ -53,7 +53,7 @@ class ChainMergeContributorsProvider implements ChainContributorsProviderInterfa
         // @ is required to avoid having errors thrown by some versions of PHP
         @usort($orderedContributors, function (OrderedContributorInterface $a, OrderedContributorInterface $b) {
             if ($a->getOrder() == $b->getOrder()) {
-                return 1;
+                return PHP_MAJOR_VERSION < 7 ? 1 : 0;
             }
 
             return $b->getOrder() < $a->getOrder() ? 1 : -1;

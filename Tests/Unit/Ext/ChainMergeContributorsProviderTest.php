@@ -43,8 +43,8 @@ class ChainMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testAddContributorAndThenGetContributors()
     {
-        $c1 = $this->getMock(ContributorInterface::CLAZZ);
-        $c2 = $this->getMock(ContributorInterface::CLAZZ);
+        $c1 = $this->createMock(ContributorInterface::CLAZZ);
+        $c2 = $this->createMock(ContributorInterface::CLAZZ);
 
         $this->p->addContributor($c1);
         $this->p->addContributor($c2);
@@ -57,7 +57,7 @@ class ChainMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetItemsWhenContributorReturnsNonArray()
     {
-        $c1 = $this->getMock(ContributorInterface::CLAZZ);
+        $c1 = $this->createMock(ContributorInterface::CLAZZ);
         $c1->expects($this->any())
            ->method('getItems')
            ->will($this->returnValue('foo'));
@@ -69,12 +69,12 @@ class ChainMergeContributorsProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetItems()
     {
-        $c1 = $this->getMock(ContributorInterface::CLAZZ);
+        $c1 = $this->createMock(ContributorInterface::CLAZZ);
         $c1->expects($this->any())
            ->method('getItems')
            ->will($this->returnValue(array('foo1', 'foo2')));
 
-        $c2 = $this->getMock(ContributorInterface::CLAZZ);
+        $c2 = $this->createMock(ContributorInterface::CLAZZ);
         $c2->expects($this->any())
            ->method('getItems')
            ->will($this->returnValue(array('bar1', 'bar2')));
