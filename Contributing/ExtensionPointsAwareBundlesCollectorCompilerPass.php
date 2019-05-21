@@ -29,7 +29,7 @@ class ExtensionPointsAwareBundlesCollectorCompilerPass implements CompilerPassIn
     /**
      * @param KernelInterface $kernel
      */
-    public function __construct(KernelInterface $kernel)
+    public function __construct(KernelInterface $kernel = null)
     {
         $this->kernel = $kernel;
     }
