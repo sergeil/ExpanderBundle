@@ -3,14 +3,14 @@
 namespace Sli\ExpanderBundle\Command;
 
 use Sli\ExpanderBundle\Misc\KernelProxy;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @author Sergei Lissovski <sergei.lissovski@gmail.com>
  */
-abstract class AbstractCommand extends ContainerAwareCommand
+abstract class AbstractCommand extends Command
 {
     // marked as public to simplify unit testing
     public $kernelProxy;
@@ -32,6 +32,8 @@ abstract class AbstractCommand extends ContainerAwareCommand
 
             throw $e;
         }
+
+        return 0;
     }
 
     /**
